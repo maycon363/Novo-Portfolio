@@ -1,0 +1,248 @@
+/* css/style.css */
+body {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+
+:root {
+    --green-400: #4ade80;
+
+    --react-blue: #61DAFB;
+    --typescript-blue: #3178C6;
+    --javascript-yellow: #F7DF1E;
+    --flutter-blue: #02569B;
+    --kotlin-purple: #7F52FF;
+    --css3-blue: #1572B6;
+    --tailwind-blue: #06B6D4;
+    --bootstrap-purple: #7952B3;
+    --mongodb-green: #47A248;
+    --sqlite-blue: #003B57;
+    --git-orange: #F05032;
+    --github-dark: #FFFFFF;
+    --nextjs-dark: #FFFFFF;
+    --nodejs-green: #339933;
+    --redux-purple: #764ABC;
+    --vite-yellow: #646CFF;
+}
+
+.react-icon {
+    color: var(--react-blue);
+}
+
+.nextjs-icon {
+    color: var(--nextjs-dark);
+}
+
+.nodejs-icon {
+    color: var(--nodejs-green);
+}
+
+.redux-icon {
+    color: var(--redux-purple);
+}
+
+.vite-icon {
+    color: var(--vite-yellow);
+}
+
+.typescript-icon {
+    color: var(--typescript-blue);
+}
+
+.javascript-icon {
+    color: var(--javascript-yellow);
+}
+
+.react-native-icon {
+    color: var(--react-blue);
+}
+
+.flutter-icon {
+    color: var(--flutter-blue);
+}
+
+.kotlin-icon {
+    color: var(--kotlin-purple);
+}
+
+.tailwind-icon {
+    color: var(--tailwind-blue);
+}
+
+.bootstrap-icon {
+    color: var(--bootstrap-purple);
+}
+
+.css3-icon {
+    color: var(--css3-blue);
+}
+
+.mongodb-icon {
+    color: var(--mongodb-green);
+}
+
+.sqlite-icon {
+    color: var(--sqlite-blue);
+}
+
+.git-icon {
+    color: var(--git-orange);
+}
+
+.github-icon {
+    color: var(--github-dark);
+}
+
+.card-item i {
+    /* Garante uma transição suave entre a cor original e o verde */
+    transition: color 1.5s ease-in-out;
+}
+
+.card-item.active i {
+    /* Aplica a cor verde de destaque quando a carta está ativa */
+    color: var(--green-400) !important;
+}
+
+.perfil-3d-container {
+    perspective: 1000px;
+    /* Define a profundidade do efeito */
+}
+
+/* 2. Define o ponto de rotação no centro e a transição */
+#perfil-img {
+    transform-style: preserve-3d;
+    /* Permite que o 3D seja aplicado */
+    transform: rotateX(0deg) rotateY(0deg) scale(1);
+    /* Estado inicial */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    /* Transição suave */
+}
+
+/* ---------------------------------------------------------------- */
+
+.card-stack-container {
+    /* Define o contêiner para o posicionamento absoluto dos itens */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* Herda a altura do elemento pai (350px) */
+}
+
+/* 💥 NOVO: Animação de Puxar a Carta (mais dramática) */
+.card-item.puxando {
+    /* Mantém visível (opacity 1) e com z-index alto durante a animação */
+    opacity: 1;
+    z-index: 20;
+    /* Garante que fique acima de tudo */
+    pointer-events: none;
+
+    /* 🃏 Efeito de puxar (mais dramático) */
+    /* Move para baixo (Y), para o lado (X) e gira, simulando o puxar e descarte. */
+    transform: translateY(150%) translateX(20%) rotate(10deg) scale(0.9);
+
+    /* A transição é crucial! O cubic-bezier 0.6, 0.05, 0.9, 0.95 simula um lançamento. */
+    transition: transform 0.6s cubic-bezier(0.6, 0.05, 0.9, 0.95), opacity 0.6s ease-out;
+}
+
+.card-item {
+    /* Estilos base para todos os itens */
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    background-color: #171717;
+    border: 2px solid #3f3f46;
+    border-radius: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+    transition: transform 0.6s cubic-bezier(0.2, 0.5, 0.2, 1),
+        opacity 0.6s ease-in-out,
+        z-index 0.01s linear 0.6s,
+        border-color 0.4s,
+        box-shadow 0.6s;
+
+    will-change: transform, opacity, z-index;
+}
+
+/* Estado Ativo: O mais importante. Destacado e na frente (z-index alto) */
+.card-item.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    /* Posição normal */
+    z-index: 10;
+    /* Fica por cima de todos os outros */
+
+    /* Destaque visual */
+    border-color: #4ade80;
+    /* green-400 */
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.4),
+        0 0 10px rgba(74, 222, 128, 0.8);
+    filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.6));
+
+    /* Reseta a mudança de z-index, ele vem pra frente IMEDIATAMENTE */
+    transition: transform 0.6s cubic-bezier(0.2, 0.5, 0.2, 1),
+        opacity 0.6s ease-in-out,
+        z-index 0.01s linear 0s,
+        border-color 0.4s,
+        box-shadow 0.6s;
+}
+
+/* Efeito de Pilha: Itens atrás do ativo. */
+/* O z-index é definido pelo JS para garantir a ordem correta na pilha */
+.card-item.stack-2 {
+    opacity: 0.6;
+    transform: translateY(10px) scale(0.95);
+    /* Move para baixo e diminui */
+    border-color: #52525b;
+}
+
+.card-item.stack-3 {
+    opacity: 0.3;
+    transform: translateY(20px) scale(0.9);
+    /* Move mais para baixo e diminui mais */
+    border-color: #52525b;
+}
+
+.card-item.hidden {
+    /* Usado para itens que não estão nem na pilha nem ativos (para transição) */
+    opacity: 0;
+    transform: translateY(-50px) scale(0.8);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* O resto do seu CSS... */
+html {
+    overflow-x: hidden;
+}
+
+.animate-highlight {
+    /* Aplica a animação: nome, duração, repetição e suavização */
+    animation: highlight-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes highlight-pulse {
+
+    0%,
+    100% {
+        color: #4ade80;
+        /* Cor verde inicial (green-400 do Tailwind) */
+        text-shadow: 0 0 5px rgba(74, 222, 128, 0.5);
+        /* Sombra suave */
+    }
+
+    50% {
+        color: #a7f3d0;
+        /* Cor verde mais clara */
+        text-shadow: 0 0 10px #4ade80;
+        /* Sombra mais forte no pico */
+    }
+}

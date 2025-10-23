@@ -1,0 +1,24 @@
+
+a, button, input, textarea {
+    transition: all 0.3s ease-in-out;
+}
+
+#stack > div > div {
+    transition: all 0.3s ease-in-out;
+}
+
+#stack > div > div:hover {
+    box-shadow: 0 5px 15px rgba(52, 211, 163, 0.2);
+}
+
+#projetos article {
+    transition: all 0.3s ease-in-out;
+}
+
+#projetos article:hover {
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+}
+
+#hero img {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
